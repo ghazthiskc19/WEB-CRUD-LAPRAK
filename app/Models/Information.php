@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Information extends Model
 {
-    protected $fillable = ['name', 'list_informasi'];
+    protected $table = 'information';
+
+    protected $fillable = ['list_informasi'];
 }

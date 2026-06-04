@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function authenticate (Request $req){
+        $req->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:3'],
+        ]);
+
         $credentials = $req->only(['username', 'email', 'password']);
 
         if(Auth::attempt($credentials)){
@@ -15,7 +21,7 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah!']);
+        return back()->withInput()->withErrors(['login' => 'Username, email, atau password salah!']);
     }
 
     public function logout(Request $req){
